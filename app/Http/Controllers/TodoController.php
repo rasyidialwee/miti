@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTodoRequest;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -30,15 +31,15 @@ class TodoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTodoRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        // $validated = $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'description' => 'required|string|max:255',
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+        // ]);
 
-        $image = $request->file('image');
+        $image = $request['image'];
 
         $name = $image->getClientOriginalName();
 
@@ -47,8 +48,8 @@ class TodoController extends Controller
         );
 
         Todo::create([
-            'name' => $request->name,
-            'description' => $request->description,
+            'name' => $request['name'],
+            'description' => $request['description'],
             'image_path' => $path
         ]);
 
