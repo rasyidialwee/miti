@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TodoController extends Controller
 {
@@ -31,9 +32,18 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+        $image = $request->file('image');
+
+        $name = $image->getClientOriginalName();
+
+        $path = $image->storeAs(
+            'images',$request->name. '_'. $name, 'public'
+        );
+
         Todo::create([
             'name' => $request->name,
-            'description' => $request->description
+            'description' => $request->description,
+            'image_path' => $path
         ]);
 
         // Todo::create($request->all());
@@ -70,6 +80,7 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
+
         $todo->update([
             'name' => $request->name,
             'description' => $request->description
