@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,4 +23,14 @@ class Todo extends Model
     protected $casts = [
         'is_completed' => 'boolean',
     ];
+
+    /**
+     * Get the user's first name.
+     */
+    protected function imagePath(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => 'storage/'. $value,
+        );
+    }
 }

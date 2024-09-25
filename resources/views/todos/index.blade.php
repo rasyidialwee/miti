@@ -25,7 +25,7 @@
                                 <tr class="hover:bg-gray-100">
                                     <td class="px-4 py-3 border-b">{{ $todo->name }}</td>
                                     <td class="px-4 py-3 border-b">{{ $todo->description }}</td>
-                                    <td class="px-4 py-3 border-b"><img src="{{ 'storage/' . $todo->image_path }}"
+                                    <td class="px-4 py-3 border-b"><img src="{{ $todo->image_path }}"
                                             alt="{{ $todo->name }}">
                                     </td>
                                     <td class="px-4 py-3 border-b">
