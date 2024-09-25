@@ -14,9 +14,15 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return view("todos/index", [
-            'todos' => Todo::orderByDesc('created_at')
-                ->paginate(10),
+        // return view("todos/index", [
+        //     'todos' => Todo::where('user_id', auth()->user()->id)->orderByDesc('created_at')
+        //         ->paginate(10),
+        // ]);
+
+        $user = auth()->user();
+
+        return view('todos/index', [
+            'todos' => $user->todos()->orderByDesc('created_at')->paginate(10),
         ]);
     }
 
@@ -50,7 +56,8 @@ class TodoController extends Controller
         Todo::create([
             'name' => $request['name'],
             'description' => $request['description'],
-            'image_path' => $path
+            'image_path' => $path,
+            'user_id' => auth()->user()->id
         ]);
 
         // Todo::create($request->all());

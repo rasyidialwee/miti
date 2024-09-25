@@ -22,7 +22,7 @@ class StoreTodoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:5',
+            'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ];

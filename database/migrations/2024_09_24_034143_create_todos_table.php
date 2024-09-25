@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image_path')->nullable();
             $table->boolean('is_completed')->default(false);
             $table->dateTime('completed_at')->nullable();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
