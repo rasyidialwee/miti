@@ -15,8 +15,8 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run(): void
     {
         $roles = [
-               'super_admin',
-               'user',
+            'super_admin',
+            'user',
         ];
 
         $permissions = [
@@ -36,6 +36,6 @@ class RolesAndPermissionsSeeder extends Seeder
 
         //assign permissions to roles
         $superAdmin = Role::findByName('super_admin');
-        $superAdmin->givePermissionTo($permissions);
+        // $superAdmin->givePermissionTo($permissions);
     }
 }
