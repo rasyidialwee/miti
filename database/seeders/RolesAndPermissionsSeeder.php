@@ -37,5 +37,8 @@ class RolesAndPermissionsSeeder extends Seeder
         //assign permissions to roles
         $superAdmin = Role::findByName('super_admin');
         // $superAdmin->givePermissionTo($permissions);
+
+        $user = Role::findByName('user');
+        $user->givePermissionTo($permissions);
     }
 }

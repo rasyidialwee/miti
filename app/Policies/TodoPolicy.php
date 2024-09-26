@@ -58,7 +58,7 @@ class TodoPolicy
         //     ? Response::allow()
         //     : Response::deny('You are not authorized to update this todo.');
 
-        return $user->can('update_todo')
+        return $user->can('update_todo') && $user->id === $todo->user_id
             ? Response::allow()
             : Response::deny('You are not authorized to update this todo.');
     }
