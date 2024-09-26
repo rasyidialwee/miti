@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class TodoFactory extends Factory
             'image_path' => fake()->imageUrl(100, 100),
             'is_completed' => fake()->boolean,
             'completed_at' => fake()->dateTime,
-
+            'user_id' => User::factory(),
         ];
     }
 }

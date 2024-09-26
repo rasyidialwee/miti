@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTodoRequest;
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class TodoController extends Controller
@@ -14,6 +15,7 @@ class TodoController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Todo::class);
         // return view("todos/index", [
         //     'todos' => Todo::where('user_id', auth()->user()->id)->orderByDesc('created_at')
         //         ->paginate(10),
@@ -31,6 +33,7 @@ class TodoController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Todo::class);
         return view('todos/create');
     }
 
@@ -39,6 +42,7 @@ class TodoController extends Controller
      */
     public function store(StoreTodoRequest $request)
     {
+        Gate::authorize('create', Todo::class);
         // $validated = $request->validate([
         //     'name' => 'required|string|max:255',
         //     'description' => 'required|string|max:255',
@@ -73,9 +77,9 @@ class TodoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Todo $todo)
     {
-        //
+        Gate::authorize('view', $todo);
     }
 
     /**
@@ -83,6 +87,8 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
+        Gate::authorize('update', $todo);
+
         return view('todos/edit', [
             'todo' => $todo
         ]);
@@ -94,6 +100,7 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
+        Gate::authorize('update', $todo);
 
         $todo->update([
             'name' => $request->name,
@@ -109,6 +116,8 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
+        Gate::authorize('delete', $todo);
+
         $todo->delete();
         return to_route('todos.index');
     }
